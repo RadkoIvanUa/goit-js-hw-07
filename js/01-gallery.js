@@ -7,8 +7,8 @@ const refs = {
   gallery: document.querySelector(".gallery"),
 };
 
-function createGalleryMarkup(obj) {
-  return galleryItems
+function createGalleryMarkup(items) {
+  return items
     .map(
       ({ original, preview, description }) => `
     <li class="gallery__item">
@@ -36,19 +36,20 @@ function onClick(evt) {
   if (!target.classList.contains("gallery__image")) {
     return;
   }
-  
+
   const largeImageUrl = target.dataset.source;
-  const alt = target.alt.value;
+  const alt = target.alt;
   const instance = basicLightbox.create(
     `<img src="${largeImageUrl}" alt="${alt}">`
   );
-  
-  instance.show();
 
-  document.addEventListener("keydown", onKeyPress);
+  instance.show(() => document.addEventListener("keydown", onKeyPress));
+
   function onKeyPress(evt) {
     if (evt.code === "Escape") {
       instance.close();
+      document.removeEventListener("keydown", onKeyPress);
+    } else if (!instance.visible()) {
       document.removeEventListener("keydown", onKeyPress);
     }
   }
