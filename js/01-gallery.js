@@ -1,8 +1,6 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
-console.log(galleryItems);
-
 const refs = {
   gallery: document.querySelector(".gallery"),
 };
@@ -24,9 +22,7 @@ function createGalleryMarkup(items) {
     .join("");
 }
 
-const galleryMarkup = createGalleryMarkup(galleryItems);
-refs.gallery.innerHTML = galleryMarkup;
-
+refs.gallery.innerHTML = createGalleryMarkup(galleryItems);
 refs.gallery.addEventListener("click", onClick);
 
 function onClick(evt) {
