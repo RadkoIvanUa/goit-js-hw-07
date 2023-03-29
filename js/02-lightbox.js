@@ -19,18 +19,8 @@ function createGalleryMarkup(items) {
 }
 
 refs.gallery.innerHTML = createGalleryMarkup(galleryItems);
-refs.gallery.addEventListener("click", onClick);
 
-function onClick(evt) {
-  evt.preventDefault();
-
-  const { target } = evt;
-  if (!target.classList.contains("gallery__image")) {
-    return;
-  }
-
-  let lightbox = new SimpleLightbox(".gallery a", {
-    captionsData: "alt",
-    captionDelay: 250,
-  });
-}
+new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
+});
