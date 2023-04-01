@@ -46,7 +46,6 @@ function onClick(evt) {
   instance.show();
 
   function onKeyPress(evt) {
-    console.log(evt.code);
     if (evt.code === "Escape") {
       instance.close();
     }
