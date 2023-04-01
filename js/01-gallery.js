@@ -36,17 +36,19 @@ function onClick(evt) {
   const largeImageUrl = target.dataset.source;
   const alt = target.alt;
   const instance = basicLightbox.create(
-    `<img src="${largeImageUrl}" alt="${alt}">`
+    `<img src="${largeImageUrl}" alt="${alt}">`,
+    {
+      onShow: () => document.addEventListener("keydown", onKeyPress),
+      onClose: () => document.removeEventListener("keydown", onKeyPress),
+    }
   );
 
-  instance.show(() => document.addEventListener("keydown", onKeyPress));
+  instance.show();
 
   function onKeyPress(evt) {
+    console.log(evt.code);
     if (evt.code === "Escape") {
       instance.close();
-      document.removeEventListener("keydown", onKeyPress);
-    } else if (!instance.visible()) {
-      document.removeEventListener("keydown", onKeyPress);
     }
   }
 }
